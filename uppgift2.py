@@ -4,18 +4,20 @@ import requests
 from datetime import date,timedelta
 
 
-start_time=date.today()-timedelta(days=1)
-start_time=str(start_time)+'T00:00:00Z'
+start_time = date.today()-timedelta(days=1)
+start_time = str(start_time)+'T00:00:00Z'
 
 
-wind_df=pd.read_json('wind_'+str(start_time)+'.txt')
-consumption_df=pd.read_json('consumption_'+str(start_time)+'.txt')
+wind_df = pd.read_json('wind_'+str(start_time)+'.txt')
+consumption_df = pd.read_json('consumption_'+str(start_time)+'.txt')
 
-wind_sum=wind_df['value'].sum()
-consumption_sum=consumption_df['value'].sum()
+wind_sum = wind_df['value'].sum()
+consumption_sum = consumption_df['value'].sum()
 
-daily_delta=(wind_sum/consumption_sum)
+daily_delta = (wind_sum/consumption_sum)
 
 result ={"date": str(start_time), "percentage_wind": wind_sum/consumption_sum}
 with open('result.json', 'a') as f:
     f.write(str(result) + '\n')
+
+    
